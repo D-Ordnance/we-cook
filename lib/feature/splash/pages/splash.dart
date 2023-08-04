@@ -26,44 +26,45 @@ class _SplashState extends State<Splash> {
     final Widget svg = SvgPicture.asset(
         width: 70, height: 70, assetName, semanticsLabel: 'Acme Logo');
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            svg,
-            const SizedBox(
-              height: 12,
+          value: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                svg,
+                const SizedBox(
+                  height: 12,
+                ),
+                const WeCookBoldText(
+                  title: "WeCook",
+                  fontSize: 24,
+                ),
+                StreamBuilder<void>(
+                    stream: null,
+                    builder: (context, snapshot) {
+                      WidgetsBinding.instance.addPostFrameCallback(
+                        (_) => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyApp(),
+                          ),
+                        ),
+                      );
+                      return const Row(
+                        children: [],
+                      );
+                    })
+              ],
             ),
-            const WeCookBoldText(
-              title: "WeCook",
-              fontSize: 24,
-            ),
-            StreamBuilder<void>(
-                stream: null,
-                builder: (context, snapshot) {
-                  WidgetsBinding.instance.addPostFrameCallback(
-                    (_) => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyApp(),
-                      ),
-                    ),
-                  );
-                  return const Row(
-                    children: [],
-                  );
-                })
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }
