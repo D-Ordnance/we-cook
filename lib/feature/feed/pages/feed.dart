@@ -81,37 +81,45 @@ class Feeds extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  feedHeaderSection(),
-                  feedSearchSection(),
-                  const FeedSectionTitle(title: "Discover"),
-                  discoverSection(context, discoverItems),
-                  const FeedSectionTitle(title: "Trending posts"),
-                  trendingSection(context),
-                  const FeedSectionTitle(title: "Based on your preferences"),
-                  const SizedBox(
-                    height: 16,
+        body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                feedHeaderSection(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        feedSearchSection(),
+                        const FeedSectionTitle(title: "Discover"),
+                        discoverSection(context, discoverItems),
+                        const FeedSectionTitle(title: "Trending posts"),
+                        trendingSection(context),
+                        const FeedSectionTitle(
+                            title: "Based on your preferences"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        preferenceSection(context, preferenceItems),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const FeedSectionTitle(title: "Currently live"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        currentlyLiveSection(context, currentlyLiveItems),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    ),
                   ),
-                  preferenceSection(context, preferenceItems),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const FeedSectionTitle(title: "Currently live"),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  currentlyLiveSection(context, currentlyLiveItems),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ]),
-          ),
+                ),
+              ]),
         ),
       ),
     );

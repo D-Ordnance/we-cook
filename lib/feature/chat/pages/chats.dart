@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:we_cook/feature/chat/pages/chat.dart';
 import 'package:we_cook/feature/chat/widgets/chat_item.dart';
 
 class Chats extends StatefulWidget {
@@ -162,7 +163,7 @@ class _ChatsState extends State<Chats> {
           ),
           TextField(
             controller: _chatsTextEditController,
-            onChanged: (value) => filterChatList(value),
+            onChanged: (value) => _filterChatList(value),
             decoration: const InputDecoration(
               hintText: "Search",
               hintStyle: TextStyle(color: Color(0xFFBCBCBC)),
@@ -199,7 +200,8 @@ class _ChatsState extends State<Chats> {
                 padding: EdgeInsets.all(5.0),
                 child: Center(
                   child: Text(
-                    'No results found,\nPlease try different keyword',
+                    'No results found,\nPlease try different keyword(s)',
+                    textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
                   ),
@@ -226,11 +228,12 @@ class _ChatsState extends State<Chats> {
                   lastMessage: items[index]["lastMessage"]!,
                   lastTimeStamp: items[index]["lastTimeStamp"]!,
                   messageStatusImage: items[index]["messageStatusImage"]!,
-                  lastItem: items.length - 1 == index))
+                  lastItem: items.length - 1 == index,
+                  onTap: _navigateToChatPage))
         ],
       );
 
-  void filterChatList(String value) {
+  void _filterChatList(String value) {
     setState(() {
       tempChatItems = chatItems
           .where((element) =>
@@ -238,4 +241,10 @@ class _ChatsState extends State<Chats> {
           .toList();
     });
   }
+
+  void _navigateToChatPage(BuildContext context, String title, String avatar) =>
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Chat(title: title, avatar: avatar)));
 }

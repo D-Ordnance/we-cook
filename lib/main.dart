@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:we_cook/feature/feed/pages/feed.dart';
+import 'package:we_cook/feature/splash/pages/splash.dart';
 
 import 'feature/chat/pages/chats.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Splash());
 }
 
 class MyApp extends StatelessWidget {
